@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { StoreProvider } from "./StoreProvider";
 import { Nav } from "./components/Nav";
+import { usePathname } from "next/navigation";
 
 import "./styles/globals.css";
 import { Fragment, useState } from "react";
@@ -49,36 +50,31 @@ interface Props {
 const navigation = [
   {
     name: "Home",
-    href: "#",
+    href: "/",
     icon: HomeIcon,
     solidIcon: HomeIconSolid,
-    current: true,
   },
   {
     name: "Discover",
-    href: "#",
+    href: "/discover",
     icon: PlayCircleIcon,
     solidIcon: PlayCiricleIconSolid,
-    current: false,
   },
   {
     name: "Avatar",
-    href: "#",
+    href: "/avatar",
     icon: UsersIcon,
     solidIcon: UsersIconSolid,
-    current: false,
   },
   {
     name: "Connect",
-    href: "#",
+    href: "/connect",
     icon: ChatBubbleLeftEllipsisIcon,
-    current: false,
   },
   {
     name: "More",
-    href: "#",
+    href: "/more",
     icon: EllipsisHorizontalCircleIcon,
-    current: false,
   },
 ];
 const teams = [
@@ -95,6 +91,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default function RootLayout({ children }: Props) {
+  const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -209,7 +206,7 @@ export default function RootLayout({ children }: Props) {
                                 href={item.href}
                                 className="group flex gap-x-3 rounded-md text-sm font-semibold leading-6 justify-center py-2"
                               >
-                                {item.current ? (
+                                {pathname === item.href ? (
                                   <item.solidIcon
                                     className="h-6 w-6 shrink-0"
                                     aria-hidden="true"
